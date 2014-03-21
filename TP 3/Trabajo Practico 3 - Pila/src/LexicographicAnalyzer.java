@@ -7,6 +7,13 @@ import java.io.*;
  */
 public class LexicographicAnalyzer {
 
+
+    /**
+     * Lee un archivo y se fija que todos los parentesis, corchetes y llaves abiertas tengan un cierre
+     * @param file el archivo que se va a leer
+     * @return devuelve verdadero si todos los parentesis, corchetes y llaves tienen un cierre
+     * @throws IOException
+     */
 	public static boolean analyze(File file) throws IOException {
 		Pila openingClauses = new PilaE();
 

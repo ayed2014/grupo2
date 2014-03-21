@@ -67,7 +67,7 @@
       <file leaf-file-name="LexicographicAnalyzer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LexicographicAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="48" selection-start="214" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="89" max-vertical-offset="986">
+            <state line="23" column="48" selection-start="503" selection-end="648" vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="1105">
               <folding />
             </state>
           </provider>
@@ -76,7 +76,7 @@
       <file leaf-file-name="PilaE.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PilaE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="66" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0" vertical-offset="505" max-vertical-offset="1020">
+            <state line="41" column="66" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="1020">
               <folding />
             </state>
           </provider>
@@ -85,7 +85,7 @@
       <file leaf-file-name="SimpleCalculator.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SimpleCalculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="10" selection-start="2409" selection-end="2409" vertical-scroll-proportion="0.0" vertical-offset="1245" max-vertical-offset="2278">
+            <state line="105" column="10" selection-start="3753" selection-end="3753" vertical-scroll-proportion="0.0" vertical-offset="1585" max-vertical-offset="2550">
               <folding />
             </state>
           </provider>
@@ -94,7 +94,7 @@
       <file leaf-file-name="Test.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="33" selection-start="609" selection-end="609" vertical-scroll-proportion="0.7616" vertical-offset="0" max-vertical-offset="731">
+            <state line="26" column="64" selection-start="579" selection-end="579" vertical-scroll-proportion="0.5376" vertical-offset="106" max-vertical-offset="731">
               <folding />
             </state>
           </provider>
@@ -152,7 +152,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -187,6 +186,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -261,19 +261,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -299,6 +286,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -401,8 +401,8 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -426,6 +426,34 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/LexicographicAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="48" selection-start="214" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="89" max-vertical-offset="986">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PilaE.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="66" selection-start="865" selection-end="865" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="1020">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SimpleCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="10" selection-start="2409" selection-end="2409" vertical-scroll-proportion="0.0" vertical-offset="1245" max-vertical-offset="2278">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="33" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="731">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/LexicographicAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="37" column="51" selection-start="962" selection-end="962" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
@@ -540,7 +568,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LexicographicAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="48" selection-start="214" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="89" max-vertical-offset="986">
+        <state line="23" column="48" selection-start="503" selection-end="648" vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="1105">
           <folding />
         </state>
       </provider>
@@ -554,14 +582,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SimpleCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="10" selection-start="2409" selection-end="2409" vertical-scroll-proportion="0.0" vertical-offset="1245" max-vertical-offset="2278">
+        <state line="105" column="10" selection-start="3753" selection-end="3753" vertical-scroll-proportion="0.0" vertical-offset="1432" max-vertical-offset="2550">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="33" selection-start="609" selection-end="609" vertical-scroll-proportion="0.7616" vertical-offset="0" max-vertical-offset="731">
+        <state line="26" column="64" selection-start="579" selection-end="579" vertical-scroll-proportion="0.5376" vertical-offset="106" max-vertical-offset="731">
           <folding />
         </state>
       </provider>
