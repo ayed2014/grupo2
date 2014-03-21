@@ -29,17 +29,17 @@ public class LexicographicAnalyzer {
 						break;
 					case '}':
 						if(openingClauses.esVacia()) return false;
-						if(((Character)openingClauses.verTope()) != '{') return false;
+						if(((char)openingClauses.verTope()) != '{') return false;
 						else openingClauses.desapilar();
 						break;
 					case ']':
 						if(openingClauses.esVacia()) return false;
-						if(((Character)openingClauses.verTope()) != '[') return false;
+						if(((char)openingClauses.verTope()) != '[') return false;
 						else openingClauses.desapilar();
 						break;
 					case ')':
 						if(openingClauses.esVacia()) return false;
-						if(((Character)openingClauses.verTope()) != '(') return false;
+						if(((char)openingClauses.verTope()) != '(') return false;
 						else openingClauses.desapilar();
 						break;
 					default: break;

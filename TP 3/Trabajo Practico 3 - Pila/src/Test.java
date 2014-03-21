@@ -8,6 +8,7 @@ import java.io.*;
 public class Test {
 
 	public static void main(String[] args) {
+
 		System.out.println("\n*******\n");
 		try {
 			System.out.println(LexicographicAnalyzer.analyze(new File("src/test1.txt")));
