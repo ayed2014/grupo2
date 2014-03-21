@@ -22,6 +22,16 @@ public class Test {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		SimpleCalculator simpleCalculator = new SimpleCalculator();
+		while(true){
+			try{
+				System.out.print(simpleCalculator.calculate(simpleCalculator.scanInput()));
+				break;
+			}catch(IllegalArgumentException e){
+				System.out.println("Place an equals sign (=) at the end of the equation!");
+			}
+		}
 	}
 
 }

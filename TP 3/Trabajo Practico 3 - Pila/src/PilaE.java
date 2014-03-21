@@ -34,11 +34,12 @@ public class PilaE implements Pila{
 	}
 
 	public void desapilar(){
-		if(top == 0) throw new IndexOutOfBoundsException("The objects is empty!");
+		if(top == 0) throw new IndexOutOfBoundsException("The pila is empty!");
 		top--;
 	}
 
 	public Object verTope(){
+		if(top == 0) throw new IndexOutOfBoundsException("The pila is empty!");
 		return objects[top - 1];
 	}
 
