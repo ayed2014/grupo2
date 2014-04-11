@@ -1,3 +1,5 @@
+
+
 import java.util.Random;
 
 /**
@@ -8,7 +10,7 @@ public class Window {
     private int idleTime;
     private double money;
     private QueueD customers;
-    private Pila waitTimes;
+    private PilaD waitTimes;
     private Customer currentCustomer;
 
     public Window() {
@@ -31,6 +33,8 @@ public class Window {
                 if (!customers.isEmpty()) {
                     currentCustomer = (Customer) customers.deQueue();
                 }
+            } else {
+                idleTime = idleTime + 10;
             }
         } else {
             idleTime = idleTime + 10;
@@ -49,7 +53,7 @@ public class Window {
         int i = 0;
         while (!waitTimes.esVacia()){
             i++;
-            averageWaitTime = averageWaitTime + (Integer) waitTimes.verTope();
+            averageWaitTime = averageWaitTime + ((Integer) waitTimes.verTope()).intValue();
             waitTimes.desapilar();
         }
         if (i != 0)return averageWaitTime / i;

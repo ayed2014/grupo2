@@ -1,14 +1,15 @@
+
 import java.util.Random;
 
 /**
  * Created by Francisco on 10/04/14.
  */
 public class Metrovias {
-    ListE windows;
-    double money;
-    int averageWaitTime;
-    int currentTime;
-    int totalOpenTime;
+    private ListE windows;
+    private double money;
+    private int averageWaitTime;
+    private int currentTime;
+    private int totalOpenTime;
 
     public Metrovias(int windows) {
         money = 0;
@@ -80,6 +81,7 @@ public class Metrovias {
         for (int i = 0; i < windows.size(); i++) {
             Window w = (Window) windows.seeCurrent();
             w.attend(currentTime);
+            windows.next();
         }
     }
 
@@ -97,6 +99,7 @@ public class Metrovias {
         for (int i = 0; i < windows.size(); i++) {
             Window w = (Window) windows.seeCurrent();
             averageWaitTime = averageWaitTime + w.getAverageWaitTime();
+            windows.next();
         }
         return averageWaitTime / windows.size();
     }
@@ -106,6 +109,7 @@ public class Metrovias {
         for (int i = 0; i < windows.size(); i++) {
             Window w = (Window) windows.seeCurrent();
             money = money + w.getMoney();
+            windows.next();
         }
         return money;
     }
@@ -115,6 +119,7 @@ public class Metrovias {
         for (int i = 0; i < windows.size(); i++) {
             Window w = (Window) windows.seeCurrent();
             System.out.println("Idle time for Window #" + (i + 1) + " is " + w.getIdleTime() + " seconds");
+            windows.next();
         }
     }
 }
