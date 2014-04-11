@@ -1,11 +1,10 @@
-
 /**
  * @author Nicolas Burroni
  * @since 3/14/14
  */
 public class PilaE implements Pila{
 
-	protected Object[] objects;
+	private Object[] objects;
 	private int top;
 
 	public PilaE(){
@@ -34,12 +33,11 @@ public class PilaE implements Pila{
 	}
 
 	public void desapilar(){
-		if(top == 0) throw new IndexOutOfBoundsException("The pila is empty!");
+		if(top == 0) throw new IndexOutOfBoundsException("The objects is empty!");
 		top--;
 	}
 
 	public Object verTope(){
-		if(top == 0) throw new IndexOutOfBoundsException("The pila is empty!");
 		return objects[top - 1];
 	}
 

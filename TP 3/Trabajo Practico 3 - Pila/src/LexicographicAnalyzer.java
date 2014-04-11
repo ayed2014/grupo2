@@ -15,7 +15,7 @@ public class LexicographicAnalyzer {
      * @throws IOException
      */
 	public static boolean analyze(File file) throws IOException {
-		Pila openingClauses = new PilaE();
+		Pila openingClauses = new PilaD();
 
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
