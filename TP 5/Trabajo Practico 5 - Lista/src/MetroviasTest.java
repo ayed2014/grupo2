@@ -11,5 +11,9 @@ public class MetroviasTest {
         int i = scanner.nextInt();
         Metrovias m = new Metrovias(i);
         m.simulate();
+	    System.out.println("AVG wait time: " + m.getAverageWaitTime());
+	    System.out.println("TOTAL earnings: " + m.getTotalEarnings());
+	    System.out.println("Idle times: ");
+	    for(int j : m.getIdleTimes()) System.out.println(j);
     }
 }

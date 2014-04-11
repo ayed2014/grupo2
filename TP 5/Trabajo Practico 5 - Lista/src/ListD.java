@@ -4,12 +4,14 @@
  */
 public class ListD implements List {
 
-	private Nodo first, window;
+	private Nodo head, window, sentinel;
 	private int size;
 
 	public ListD(){
-		first = new Nodo();
-		window = first;
+		head = new Nodo("Head");
+		sentinel = new Nodo("Sentinel");
+		head.next = sentinel;
+		window = head;
 		size = 0;
 	}
 
@@ -20,43 +22,45 @@ public class ListD implements List {
 
 	@Override
 	public void empty() {
-		first = new Nodo();
-		window = first;
+		head = new Nodo();
+		window = head;
 		size = 0;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return first.hasNoObj();
+		return head.next == sentinel;
 	}
 
 	@Override
 	public void addBefore(Object obj) {
-		if(window == first) {
-			first = new Nodo(obj, first);
-			window = first;
-		} else{
-			previous();
-			addAfter(obj);
+		if (!isEmpty()) {
+			goBack();
 		}
-		size++;
+		addAfter(obj);
 	}
 
 	@Override
 	public void addAfter(Object obj) {
 		window.next = new Nodo(obj, window.next);
-		next();
+		window = window.next;
 		size++;
 	}
 
 	@Override
 	public void next() {
+		if(window.next == sentinel) throw new IndexOutOfBoundsException("Reached the end of this List");
 		window = window.next;
 	}
 
 	@Override
 	public void previous() {
-		Nodo aux = first;
+		if(window == head.next) throw new IndexOutOfBoundsException("Reached the beginning of this List");
+		goBack();
+	}
+
+	private void goBack(){
+		Nodo aux = head;
 		while(window != aux.next){
 			aux = aux.next;
 		}
@@ -65,7 +69,7 @@ public class ListD implements List {
 
 	@Override
 	public void goTo(int index) {
-		window = first;
+		window = head.next;
 		for(int i = 0; i < index; i++){
 			window = window.next;
 		}
@@ -73,15 +77,15 @@ public class ListD implements List {
 
 	@Override
 	public void remove() {
-		previous();
-		window.next = window.next.next;
-		next();
+		if(isEmpty()) throw new NullPointerException("This List is empty");
+		window = new Nodo(window.next.obj, window.next.next);
+		if(window == sentinel) goBack();
 		size--;
 	}
 
 	@Override
 	public void modify(Object obj) {
-		if(isEmpty()) size++;
+		if(isEmpty()) throw new NullPointerException("This List is empty");
 		window.obj = obj;
 	}
 

@@ -1,125 +1,84 @@
-
 import java.util.Random;
 
 /**
- * Created by Francisco on 10/04/14.
+ * @author Nicolas Burroni
+ * @since 4/11/2014
  */
 public class Metrovias {
-    private ListE windows;
-    private double money;
-    private int averageWaitTime;
-    private int currentTime;
-    private int totalOpenTime;
+	private List windows;
+	private int currentTime;
+	private int closingTime;
 
-    public Metrovias(int windows) {
-        money = 0;
-        currentTime = 0;
-        totalOpenTime = 57570;
-        this.windows = new ListE();
-        for (int i = 0; i < windows; i++) {
-            this.windows.addAfter(new Window());
-        }
-    }
+	public Metrovias(int windows) {
+		this.windows = new ListD();
+		currentTime = 0;
+		closingTime = 57570;
+		for (int i = 0; i < windows; i++) this.windows.addAfter(new Window());
+	}
 
-    public void simulate() {
-        while (currentTime < totalOpenTime) {
-            newCustomers();
-            attend();
-            currentTime = currentTime + 10;
-        }
-        close();
-    }
+	public void simulate() {
+		for (; currentTime < closingTime; currentTime += 10){
+			generateCustomers();
+			attend();
+		}
+		for (int i=0; i <windows.size(); i++){
+			windows.goTo(i);
+			Window w = (Window) windows.seeCurrent();
+			w.causeMayhem(currentTime);
+		}
+	}
 
-    public void newCustomers() {
-        for (int i = 0; i < 5; i++) {
-            Customer c = new Customer(currentTime);
-            Random r = new Random();
-            Queue windowOptions = new QueueD();
-            if (thereIsEmptyWindow()) {
-                for (int j = 0; j < windows.size(); j++) {
-                    windows.goTo(j);
-                    Window w = (Window) windows.seeCurrent();
-                    if (w.isEmpty()) {
-                        windowOptions.enQueue(w);
-                    }
-                }
-                int windowChoice = r.nextInt(windowOptions.length()) + 1;
-                for (int j = 1; j < windowChoice; j++) {
-                    windowOptions.deQueue();
-                }
-                Window w = (Window) windowOptions.deQueue();
-                w.addCustomer(c);
-            } else {
-                for (int j = 0; j < windows.size(); j++) {
-                    windows.goTo(j);
-                    Window w = (Window) windows.seeCurrent();
-                    windowOptions.enQueue(w);
-                }
-                int windowChoice = r.nextInt(windowOptions.length()) + 1;
-                for (int k = 1; k < windowChoice; k++) {
-                    windowOptions.deQueue();
-                }
-                Window w = (Window) windowOptions.deQueue();
-                w.addCustomer(c);
+	public void generateCustomers() {
+		for (int i = 0; i < 5; i++) {
+			Customer c = new Customer(currentTime);
+			sortCustomer(c);
+		}
+	}
 
-            }
-        }
-    }
+	public void sortCustomer(Customer c) {
+		Random r = new Random();
+		int chosenWindow = r.nextInt(windows.size());
+		windows.goTo(chosenWindow);
+		Window w = (Window) windows.seeCurrent();
+		w.addCustomer(c);
+	}
 
-    private boolean thereIsEmptyWindow() {
-        windows.goTo(0);
-        for (int i = 0; i < windows.size(); i++) {
-            Window w = (Window) windows.seeCurrent();
-            if (w.isEmpty()) return true;
-            else windows.next();
-        }
-        return false;
-    }
+	public void attend(){
+		for (int i=0; i <windows.size(); i++){
+			windows.goTo(i);
+			Window w = (Window) windows.seeCurrent();
+			w.attend(currentTime);
+		}
+	}
 
-    private void attend() {
-        windows.goTo(0);
-        for (int i = 0; i < windows.size(); i++) {
-            Window w = (Window) windows.seeCurrent();
-            w.attend(currentTime);
-            windows.next();
-        }
-    }
+	public double getAverageWaitTime(){
+		int sum = 0;
+		for (int i=0; i <windows.size(); i++){
+			windows.goTo(i);
+			Window w = (Window) windows.seeCurrent();
+			sum += w.getAverageWaitTime();
+		}
+		return sum/windows.size();
+	}
 
-    private void close() {
-        while (thereIsEmptyWindow()) {
-            attend();
-        }
-        System.out.println("Average wait time for each customer was: " + getAverageWaitTime() + " seconds.");
-        getIdleTime();
-        System.out.println("Total money obtained is: " + getTotalMoney());
-    }
+	public double getTotalEarnings(){
+		double sum = 0;
+		for (int i=0; i <windows.size(); i++){
+			windows.goTo(i);
+			Window w = (Window) windows.seeCurrent();
+			sum += w.getMoney();
+		}
+		return sum;
+	}
 
-    private int getAverageWaitTime() {
-        windows.goTo(0);
-        for (int i = 0; i < windows.size(); i++) {
-            Window w = (Window) windows.seeCurrent();
-            averageWaitTime = averageWaitTime + w.getAverageWaitTime();
-            windows.next();
-        }
-        return averageWaitTime / windows.size();
-    }
+	public int[] getIdleTimes(){
+		int idleTimes[] = new int[windows.size()];
+		for (int i=0; i <windows.size(); i++){
+			windows.goTo(i);
+			Window w = (Window) windows.seeCurrent();
+			idleTimes[i] = w.getIdleTime();
+		}
+		return idleTimes;
+	}
 
-    private double getTotalMoney() {
-        windows.goTo(0);
-        for (int i = 0; i < windows.size(); i++) {
-            Window w = (Window) windows.seeCurrent();
-            money = money + w.getMoney();
-            windows.next();
-        }
-        return money;
-    }
-
-    private void getIdleTime() {
-        windows.goTo(0);
-        for (int i = 0; i < windows.size(); i++) {
-            Window w = (Window) windows.seeCurrent();
-            System.out.println("Idle time for Window #" + (i + 1) + " is " + w.getIdleTime() + " seconds");
-            windows.next();
-        }
-    }
 }

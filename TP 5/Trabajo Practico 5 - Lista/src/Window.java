@@ -27,22 +27,37 @@ public class Window {
             if (currentCustomer == null) currentCustomer = (Customer) customers.deQueue();
             if (check < 30) {
                 currentCustomer.depart(currentTime);
-                waitTimes.apilar(currentCustomer.getWaitTime());
+	            System.out.println("attended!");
+	            waitTimes.apilar(currentCustomer.getWaitTime());
                 currentCustomer = null;
-                money = money + 0.7;
+	            money += 0.7;
                 if (!customers.isEmpty()) {
                     currentCustomer = (Customer) customers.deQueue();
                 }
-            } else {
-                idleTime = idleTime + 10;
             }
         } else {
-            idleTime = idleTime + 10;
+	        idleTime += 10;
+	        System.out.println(idleTime);
         }
     }
 
+	public void causeMayhem(int currentTime){
+		while (!isEmpty()) {
+			if (currentCustomer == null) currentCustomer = (Customer) customers.deQueue();
+			currentCustomer.depart(currentTime);
+			System.out.println("attended!");
+			waitTimes.apilar(currentCustomer.getWaitTime());
+			currentCustomer = null;
+			money += 0.7;
+			if (!customers.isEmpty()) {
+				currentCustomer = (Customer) customers.deQueue();
+			}
+		}
+
+	}
+
     public void addCustomer(Customer c){
-        customers.enQueue(c);
+	    customers.enQueue(c);
     }
 
     public boolean isEmpty() {
@@ -56,7 +71,7 @@ public class Window {
             averageWaitTime = averageWaitTime + ((Integer) waitTimes.verTope()).intValue();
             waitTimes.desapilar();
         }
-        if (i != 0)return averageWaitTime / i;
+        if (i != 0)return averageWaitTime / (i - 1);
         else return 0;
     }
 
