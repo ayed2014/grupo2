@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * @author Niqueues Burroni
+ * @author Nicolas Burroni, Juan Longo, Francisco DiGiandomenico
  * @since 3/26/2014
  */
 public class BinaryTreeApi {
@@ -28,22 +28,29 @@ public class BinaryTreeApi {
 		return counter;
 	}
 
-	public int height(BinaryTree a) {
-		int rightHeight = 0;
-		int leftHeight = 0;
-		int totalHeight = 0;
-		if (!a.getRight().isEmpty()) {
-			rightHeight = height(a.getRight());
-		}
-		if (!a.getLeft().isEmpty()) {
-			leftHeight = height(a.getLeft());
-		}
+	public int countOcurrencesInLevel(BinaryTree a, int lvl) {
+		int answer = countOcurrencesInLevel(a, lvl, 0);
+		if (height(a) > 0 && answer == 0) return -1;
+		else return answer;
+	}
 
-		if (rightHeight > leftHeight) {
-			return totalHeight = rightHeight + 1;
+	private int countOcurrencesInLevel(BinaryTree a, int lvl, int currentLvl) {
+		if (a.isEmpty()) {
+			return 0;
+		} else if (lvl == currentLvl) {
+			return 1;
 		} else {
-			return totalHeight = leftHeight + 1;
+			return countOcurrencesInLevel(a.getLeft(), lvl, currentLvl + 1) + countOcurrencesInLevel(a.getRight(), lvl, currentLvl + 1);
 		}
+	}
+
+	public int height(BinaryTree a) {
+		if (a.isEmpty()) return 0;
+		if (a.getLeft().isEmpty() && a.getRight().isEmpty()) return 0;
+		int leftHeight, rightHeight;
+		leftHeight = height(a.getLeft());
+		rightHeight = height(a.getRight());
+		return leftHeight >= rightHeight ? leftHeight + 1 : rightHeight + 1;
 	}
 
 	public void printPreorder(BinaryTree a) {
@@ -108,9 +115,9 @@ public class BinaryTreeApi {
 	}
 
 	public boolean areEqual(BinaryTree a1, BinaryTree a2) {
-		if(a1.isEmpty() && a2.isEmpty()) return true;
-		else if(a1.isEmpty() || a2.isEmpty()) return false;
-		if(a1.getRoot().equals(a2.getRoot()))
+		if (a1.isEmpty() && a2.isEmpty()) return true;
+		else if (a1.isEmpty() || a2.isEmpty()) return false;
+		if (a1.getRoot().equals(a2.getRoot()))
 			return areEqual(a1.getLeft(), a2.getLeft()) && areEqual(a1.getRight(), a2.getRight());
 		return false;
 	}
@@ -148,7 +155,7 @@ public class BinaryTreeApi {
 		}
 	}
 
-	public boolean isComplete(BinaryTree t){
+	public boolean isComplete(BinaryTree t) {
 		if (t.getLeft() == null && t.getRight() == null) return true;
 		if (t.getLeft() == null || t.getRight() == null) return false;
 		try {
@@ -159,7 +166,28 @@ public class BinaryTreeApi {
 		return false;
 	}
 
-	public boolean treeOccursIn(BinaryTree a1, BinaryTree a2){
+	public boolean isFull(BinaryTree a) {
+		return isFull(a, height(a), 0);
+	}
+
+	private boolean isFull(BinaryTree a, int height, int actualLevel) {
+		if (actualLevel == height) return true;
+		if (height > actualLevel && (a.getLeft().isEmpty() || a.getRight().isEmpty())) return false;
+		return isFull(a.getLeft(), height, actualLevel + 1) || isFull(a.getRight(), height, actualLevel + 1);
+	}
+
+	public boolean isStable(BinaryTree a) {
+		if (a.isEmpty()) {
+			return true;
+		} else if (a.getRight().isEmpty() && a.getLeft().isEmpty()) {
+			return true;
+		} else if ((Integer) a.getRoot() < (Integer) a.getLeft().getRoot() || (Integer) a.getRoot() < (Integer) a.getRight().getRoot()) {
+			return false;
+		}
+		return isStable(a.getRight()) && isStable(a.getLeft());
+	}
+
+	public boolean treeOccursIn(BinaryTree a1, BinaryTree a2) {
 		return areEqual(a1, a2) || treeOccursIn(a1.getLeft(), a2) || treeOccursIn(a1.getRight(), a2);
 	}
 
@@ -172,7 +200,7 @@ public class BinaryTreeApi {
 		}
 	}
 
-	public ArrayList<Object> frontierToArrayList(BinaryTree a){
+	public ArrayList<Object> frontierToArrayList(BinaryTree a) {
 		return frontierToArrayList(a, new ArrayList<Object>());
 	}
 
@@ -185,7 +213,6 @@ public class BinaryTreeApi {
 		}
 		return list;
 	}
-
 
 
 }
