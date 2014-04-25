@@ -78,7 +78,9 @@ public class ListD implements List {
 	@Override
 	public void remove() {
 		if(isEmpty()) throw new NullPointerException("This List is empty");
-		window = new Nodo(window.next.obj, window.next.next);
+		goBack();
+		window.next = window.next.next;
+		window = window.next;
 		if(window == sentinel) goBack();
 		size--;
 	}

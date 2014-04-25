@@ -5,26 +5,26 @@
 public class TestPilaD {
 
 	public static void main(String[] args) {
-		Pila pila = new PilaD();
-		pila.apilar("Nico1");
-		pila.apilar("Nico2");
-		pila.apilar("Nico3");
-		pila.apilar("Nico4");
-		pila.apilar("Nico5");
-		pila.apilar("Nico6");
-		System.out.println(pila.verTope());
-		pila.desapilar();
-		System.out.println(pila.verTope());
-		pila.desapilar();
-		System.out.println(pila.verTope());
-		pila.desapilar();
-		System.out.println(pila.verTope());
-		pila.desapilar();
-		System.out.println(pila.verTope());
-		pila.desapilar();
-		System.out.println(pila.verTope() + "" + pila.esVacia());
-		pila.desapilar();
-		System.out.println(pila.esVacia());
+		Stack stack = new StackD();
+		stack.push("Nico1");
+		stack.push("Nico2");
+		stack.push("Nico3");
+		stack.push("Nico4");
+		stack.push("Nico5");
+		stack.push("Nico6");
+		System.out.println(stack.seeTop());
+		stack.pop();
+		System.out.println(stack.seeTop());
+		stack.pop();
+		System.out.println(stack.seeTop());
+		stack.pop();
+		System.out.println(stack.seeTop());
+		stack.pop();
+		System.out.println(stack.seeTop());
+		stack.pop();
+		System.out.println(stack.seeTop() + "" + stack.isEmpty());
+		stack.pop();
+		System.out.println(stack.isEmpty());
 	}
 
 }

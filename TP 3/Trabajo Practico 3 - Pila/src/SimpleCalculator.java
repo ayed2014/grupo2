@@ -14,46 +14,46 @@ public class SimpleCalculator {
      */
     public double calculate(String input) {
         if (input.charAt(input.length() - 1) != '=') throw new IllegalArgumentException("No equals sign(=) found!");
-        Pila pila = new PilaE();
+        Stack stack = new StackE();
         String equation = toPostfix(input);
         for (int i = 0; i < equation.length(); i++) {
             char c = equation.charAt(i);
             if (Character.isDigit(c)) {
                 double d = (double) Character.getNumericValue(c);
-                pila.apilar(d);
+                stack.push(d);
             } else {
                 if (c == '+') {
-                    double i1 = (double) pila.verTope();
-                    pila.desapilar();
-                    double i2 = (double) pila.verTope();
-                    pila.desapilar();
+                    double i1 = (double) stack.seeTop();
+                    stack.pop();
+                    double i2 = (double) stack.seeTop();
+                    stack.pop();
                     double i3 = i1 + i2;
-                    pila.apilar(i3);
+                    stack.push(i3);
                 } else if (c == '-') {
-                    double i1 = (double) pila.verTope();
-                    pila.desapilar();
-                    double i2 = (double) pila.verTope();
-                    pila.desapilar();
+                    double i1 = (double) stack.seeTop();
+                    stack.pop();
+                    double i2 = (double) stack.seeTop();
+                    stack.pop();
                     double i3 = i2 - i1;
-                    pila.apilar(i3);
+                    stack.push(i3);
                 } else if (c == '*') {
-                    double i1 = (double) pila.verTope();
-                    pila.desapilar();
-                    double i2 = (double) pila.verTope();
-                    pila.desapilar();
+                    double i1 = (double) stack.seeTop();
+                    stack.pop();
+                    double i2 = (double) stack.seeTop();
+                    stack.pop();
                     double i3 = i1 * i2;
-                    pila.apilar(i3);
+                    stack.push(i3);
                 } else if (c == '/') {
-                    double i1 = (double) pila.verTope();
-                    pila.desapilar();
-                    double i2 = (double) pila.verTope();
-                    pila.desapilar();
+                    double i1 = (double) stack.seeTop();
+                    stack.pop();
+                    double i2 = (double) stack.seeTop();
+                    stack.pop();
                     double i3 = i2 / i1;
-                    pila.apilar(i3);
+                    stack.push(i3);
                 }
             }
         }
-        return (double) pila.verTope();
+        return (double) stack.seeTop();
     }
 
     /**
@@ -64,44 +64,44 @@ public class SimpleCalculator {
      */
     private String toPostfix(String input) {
         char[] inputChars = input.toCharArray();
-        Pila exit = new PilaE();
-        Pila pila = new PilaE();
+        Stack exit = new StackE();
+        Stack stack = new StackE();
 
         for (char c : inputChars) {
             if (c == ' ') continue;
             if (Character.isDigit(c))
-                exit.apilar(c);
+                exit.push(c);
             else if (c == '=') {
-                while (!pila.esVacia()) {
-                    exit.apilar(pila.verTope());
-                    pila.desapilar();
+                while (!stack.isEmpty()) {
+                    exit.push(stack.seeTop());
+                    stack.pop();
                 }
             } else { //Asumimos que si no es un numero, es un operador
-                if (pila.esVacia()) pila.apilar(c);
+                if (stack.isEmpty()) stack.push(c);
                 else {
-                    char tope = (char) pila.verTope();
+                    char tope = (char) stack.seeTop();
                     while (comparePriority(tope, c) != -1) {
                         try {
-                            exit.apilar(tope);
-                            pila.desapilar();
-                            tope = (char) pila.verTope();
+                            exit.push(tope);
+                            stack.pop();
+                            tope = (char) stack.seeTop();
                         } catch (IndexOutOfBoundsException e) {
                             break;
                         }
                     }
-                    pila.apilar(c);
+                    stack.push(c);
                 }
             }
         }
-        Pila reverseExit = new PilaE();
-        while (!exit.esVacia()) {
-            reverseExit.apilar(exit.verTope());
-            exit.desapilar();
+        Stack reverseExit = new StackE();
+        while (!exit.isEmpty()) {
+            reverseExit.push(exit.seeTop());
+            exit.pop();
         }
         String postfixInput = "";
-        while (!reverseExit.esVacia()) {
-            postfixInput += (char) reverseExit.verTope();
-            reverseExit.desapilar();
+        while (!reverseExit.isEmpty()) {
+            postfixInput += (char) reverseExit.seeTop();
+            reverseExit.pop();
         }
         //System.out.println(postfixInput);
         return postfixInput;

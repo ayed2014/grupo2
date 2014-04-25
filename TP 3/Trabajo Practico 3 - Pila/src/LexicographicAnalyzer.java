@@ -15,7 +15,7 @@ public class LexicographicAnalyzer {
      * @throws IOException
      */
 	public static boolean analyze(File file) throws IOException {
-		Pila openingClauses = new PilaD();
+		Stack openingClauses = new StackD();
 
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
@@ -26,34 +26,34 @@ public class LexicographicAnalyzer {
 			for(char c : characters){
 				switch(c){
 					case '{':
-						openingClauses.apilar(c);
+						openingClauses.push(c);
 						break;
 					case '[':
-						openingClauses.apilar(c);
+						openingClauses.push(c);
 						break;
 					case '(':
-						openingClauses.apilar(c);
+						openingClauses.push(c);
 						break;
 					case '}':
-						if(openingClauses.esVacia()) return false;
-						if(((char)openingClauses.verTope()) != '{') return false;
-						else openingClauses.desapilar();
+						if(openingClauses.isEmpty()) return false;
+						if(((char)openingClauses.seeTop()) != '{') return false;
+						else openingClauses.pop();
 						break;
 					case ']':
-						if(openingClauses.esVacia()) return false;
-						if(((char)openingClauses.verTope()) != '[') return false;
-						else openingClauses.desapilar();
+						if(openingClauses.isEmpty()) return false;
+						if(((char)openingClauses.seeTop()) != '[') return false;
+						else openingClauses.pop();
 						break;
 					case ')':
-						if(openingClauses.esVacia()) return false;
-						if(((char)openingClauses.verTope()) != '(') return false;
-						else openingClauses.desapilar();
+						if(openingClauses.isEmpty()) return false;
+						if(((char)openingClauses.seeTop()) != '(') return false;
+						else openingClauses.pop();
 						break;
 					default: break;
 				}
 			}
 		}
-		return openingClauses.esVacia();
+		return openingClauses.isEmpty();
 	}
 
 }
