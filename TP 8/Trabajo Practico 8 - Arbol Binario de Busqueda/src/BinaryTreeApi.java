@@ -18,7 +18,7 @@ public class BinaryTreeApi {
 		else return leaves(a.getLeft()) + leaves(a.getRight());
 	}
 
-	public int countOcurrences(Object o, BinaryTree a) {
+	/*public int countOcurrences(Object o, BinaryTree a) {
 		int counter = 0;
 		Object[] array = getArrayByLevels(a);
 		for (Object object : array) {
@@ -27,7 +27,7 @@ public class BinaryTreeApi {
 			}
 		}
 		return counter;
-	}
+	}*/
 
 	public int countOcurrencesInLevel(BinaryTree a, int lvl) {
 		int answer = countOcurrencesInLevel(a, lvl, 0);
@@ -75,7 +75,7 @@ public class BinaryTreeApi {
 		System.out.println(a.getRoot());
 	}
 
-	public void printByLevels(BinaryTree a) {
+	/*public void printByLevels(BinaryTree a) {
 		for (Object o : getArrayByLevels(a)) System.out.println(o);
 	}
 
@@ -95,16 +95,16 @@ public class BinaryTreeApi {
 			i++;
 		}
 		return byLevels;
-	}
+	}*/
 
-	public int addInts(BinaryTree t) {
+	/*public int addInts(BinaryTree t) {
 		Object[] array = getArrayByLevels(t);
 		int total = 0;
 		for (int i = 0; i < array.length; i++) total = total + (Integer) array[i];
 		return total;
-	}
+	}*/
 
-	public int addMultiplesOfThree(BinaryTree t) {
+	/*public int addMultiplesOfThree(BinaryTree t) {
 		Object[] allInts = getArrayByLevels(t);
 		Queue addInts = new QueueD();
 		int total = 0;
@@ -113,7 +113,7 @@ public class BinaryTreeApi {
 		}
 		while (!addInts.isEmpty()) total = total + (Integer) addInts.deQueue();
 		return total;
-	}
+	}*/
 
 	public boolean areEqual(BinaryTree a1, BinaryTree a2) {
 		if (a1.isEmpty() && a2.isEmpty()) return true;
@@ -133,7 +133,7 @@ public class BinaryTreeApi {
 		return false;
 	}
 
-	public boolean areSimilar(BinaryTree t1, BinaryTree t2) {
+	/*public boolean areSimilar(BinaryTree t1, BinaryTree t2) {
 		Object[] tree1 = getArrayByLevels(t1);
 		Object[] tree2 = getArrayByLevels(t2);
 		int matches = 0;
@@ -154,7 +154,7 @@ public class BinaryTreeApi {
 		} else {
 			return false;
 		}
-	}
+	}*/
 
 	public boolean isComplete(BinaryTree t) {
 		if (t.getLeft() == null && t.getRight() == null) return true;
