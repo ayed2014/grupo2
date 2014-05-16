@@ -6,10 +6,6 @@ public class DictionaryWord {
 
 	private String word, definition, soundexCode;
 
-	public DictionaryWord(String word) {
-		this.word = word;
-	}
-
 	public DictionaryWord(String word, String soundexCode) {
 		this.word = word;
 		this.soundexCode = soundexCode;
@@ -44,4 +40,9 @@ public class DictionaryWord {
 	public void setSoundexCode(String soundexCode) {
 		this.soundexCode = soundexCode;
 	}
+
+	public String toString(){
+		return soundexCode;
+	}
+
 }

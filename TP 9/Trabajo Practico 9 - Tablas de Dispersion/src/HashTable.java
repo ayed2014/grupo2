@@ -1,4 +1,3 @@
-import arbol.BinarySearchTree;
 
 /**
  * @author Nicolas Burroni

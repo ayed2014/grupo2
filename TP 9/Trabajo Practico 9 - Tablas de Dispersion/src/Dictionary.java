@@ -60,6 +60,7 @@ public class Dictionary {
 
 	public String[] findSimilar(String word){
 		ArrayList<String> similar = new ArrayList<>();
-
+		//TODO
+		return null;
 	}
 }
