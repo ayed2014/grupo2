@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * @author Nicolas Burroni
  * @since 5/14/2014
@@ -58,9 +56,15 @@ public class Dictionary {
 		if(!words.exists(soundexCode)) words.insert(new DictionaryWord(word, soundexCode));
 	}
 
-	public String[] findSimilar(String word){
-		ArrayList<String> similar = new ArrayList<>();
-		//TODO
-		return null;
+	public boolean wordExists(String word){
+		return words.exists(soundexCode(word));
+	}
+
+	public DictionaryWord getWord(String word){
+		return (DictionaryWord) words.get(soundexCode(word));
+	}
+
+	public DictionaryWord[] findSimilar(String word){
+		return (DictionaryWord[]) words.getArray(soundexCode(word));
 	}
 }
