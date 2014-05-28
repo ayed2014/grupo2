@@ -5,10 +5,10 @@
  */
 public interface HashTable {
 
-	public void insert(Object obj);
-	public void delete(String key);
-	public Object get(String key);
-	public boolean exists(String key);
+	public void insert(Hashable elem);
+	public void delete(Hashable elem);
+	public Object get(Hashable elem);
+	public boolean exists(Hashable elem);
 	public BinarySearchTree toBinarySearchTree();
 	public void destroy();
 

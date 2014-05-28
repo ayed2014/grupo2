@@ -6,28 +6,23 @@
 public class HashTableOpen implements HashTable {
 
 
-
 	@Override
-	public void insert(Object obj) {
+	public void insert(Hashable elem) {
 
 	}
 
 	@Override
-	public void delete(String key) {
+	public void delete(Hashable elem) {
 
 	}
 
 	@Override
-	public Object get(String key) {
+	public Object get(Hashable elem) {
 		return null;
 	}
 
-	public Object[] getArray(String key){
-
-	}
-
 	@Override
-	public boolean exists(String key) {
+	public boolean exists(Hashable elem) {
 		return false;
 	}
 
@@ -39,5 +34,9 @@ public class HashTableOpen implements HashTable {
 	@Override
 	public void destroy() {
 
+	}
+
+	public Object[] getArray(Hashable elem){
+		return null; //TODO metodo que devuelve la lista en ese indice en forma de arreglo
 	}
 }
