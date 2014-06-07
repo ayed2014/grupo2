@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /**
  * @author Nicolas Burroni
  * @since 3/21/14
  */
-public class ComparableNode {
+public class ComparableNode implements Serializable{
 
 	public Comparable obj;
 	public ComparableNode next;

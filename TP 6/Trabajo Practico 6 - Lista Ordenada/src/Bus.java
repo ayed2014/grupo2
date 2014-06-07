@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /**
  * @author Nicolas Burroni
  * @since 6/4/2014
  */
-public class Bus implements Comparable{
+public class Bus implements Comparable, Serializable{
 
 	private int line, intern, seats;
 	private boolean aptForDisabled;

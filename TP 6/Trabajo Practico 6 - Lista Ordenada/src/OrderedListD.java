@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
  * @author Nicolas Burroni
  * @since 4/11/2014
  */
-public class OrderedListD implements OrderedList, Iterable<Comparable> {
+public class OrderedListD implements OrderedList, Iterable<Comparable>, Serializable {
 
 	private ComparableNode head, window, sentinel;
 	private int size;
@@ -112,4 +113,5 @@ public class OrderedListD implements OrderedList, Iterable<Comparable> {
 			}
 		};
 	}
+
 }
