@@ -11,10 +11,10 @@ public class BusSystem {
 	}
 
 	public void runSystemMenu(){
-		System.out.println("**Welcome to the Bus System**\n");
+		System.out.println("**Welcome to the Bus System**");
 		boolean keepGoing = true;
 		while (keepGoing) {
-			System.out.println(	"1.\tAdd Bus\n" +
+			System.out.println(	"\n1.\tAdd Bus\n" +
 					"2.\tRemove Bus\n" +
 					"3.\tPrint Report\n" +
 					"4.\tShow buses apt for disabled\n" +
@@ -52,6 +52,8 @@ public class BusSystem {
 		boolean aptForDisabled = Character.toLowerCase(
 				Scanner.getChar("Is it apt for disabled?: ", "Please enter yes or no! ", allowed)) == 'y';
 		busList.insert(new Bus(line, intern, seats, aptForDisabled));
+		System.out.println("\nSuccessfully added " + busList.seeCurrent());
+		busList.goTo(0);
 	}
 
 	public void removeBus(){
@@ -60,8 +62,28 @@ public class BusSystem {
 		for (int i = 0; i <= allowed.length; i++) allowed[i] = i;
 		int choice = Scanner.getInt("Which bus would you like to remove? (Enter 0 to cancel): ", "Please enter a valid choice", allowed);
 		if(choice == 0) return;
-
+		busList.goTo(choice - 1);
+		busList.remove();
+		busList.goTo(0);
 	}
 
+	public void printReport(){
+		int line = -1;
+		for (int i = 0; i < busList.size(); i++) {
+			busList.goTo(i);
+			int currentLine = ((Bus) busList.seeCurrent()).getLine();
+			if(currentLine != line){
+				line = currentLine;
+				System.out.println("Line " + line);
+			}
+			int n = i+1;
+			System.out.println("\t" + n + ".\t" + busList.seeCurrent().toString() + "");
+		}
+		busList.goTo(0);
+	}
+
+	public void showAptForDisabled(){
+
+	}
 
 }

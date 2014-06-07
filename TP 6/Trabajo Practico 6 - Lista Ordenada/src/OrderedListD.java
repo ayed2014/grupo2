@@ -1,8 +1,10 @@
+import java.util.Iterator;
+
 /**
  * @author Nicolas Burroni
  * @since 4/11/2014
  */
-public class OrderedListD implements OrderedList {
+public class OrderedListD implements OrderedList, Iterable<Comparable> {
 
 	private ComparableNode head, window, sentinel;
 	private int size;
@@ -47,13 +49,13 @@ public class OrderedListD implements OrderedList {
 	}
 
 	@Override
-	public void next() {
+	public void nextElement() {
 		if(window.next == sentinel) throw new IndexOutOfBoundsException("Reached the end of this List");
 		window = window.next;
 	}
 
 	@Override
-	public void previous() {
+	public void previousElement() {
 		if(window == head.next) throw new IndexOutOfBoundsException("Reached the beginning of this List");
 		goBack();
 	}
@@ -89,4 +91,25 @@ public class OrderedListD implements OrderedList {
 		return size;
 	}
 
+	@Override
+	public Iterator<Comparable> iterator() {
+		goTo(0);
+		return new Iterator<Comparable>() {
+			@Override
+			public boolean hasNext() {
+				return window.next != sentinel;
+			}
+
+			@Override
+			public Comparable next() {
+				nextElement();
+				return seeCurrent();
+			}
+
+			@Override
+			public void remove() {
+
+			}
+		};
+	}
 }

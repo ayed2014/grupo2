@@ -57,4 +57,14 @@ public class Bus implements Comparable{
 	public void setAptForDisabled(boolean aptForDisabled) {
 		this.aptForDisabled = aptForDisabled;
 	}
+
+	@Override
+	public String toString() {
+		return "Bus{" +
+				"line: " + line +
+				", intern: " + intern +
+				", seats: " + seats +
+				", aptForDisabled: " + aptForDisabled +
+				'}';
+	}
 }

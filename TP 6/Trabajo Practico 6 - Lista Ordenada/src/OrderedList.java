@@ -12,9 +12,9 @@ public interface OrderedList {
 
 	public boolean isEmpty();
 
-	public void next();
+	public void nextElement();
 
-	public void previous();
+	public void previousElement();
 
 	public void goTo(int index);
 
