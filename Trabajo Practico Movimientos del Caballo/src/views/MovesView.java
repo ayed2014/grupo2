@@ -16,7 +16,12 @@ public class MovesView extends JFrame{
 	private JPanel leftPanel;
 	private JPanel rightPanel;
 	private JPanel boardPanel;
+	private JTextField textField1;
+	private JTextField textField2;
+	private JTextField textField3;
+	private JTextField textField4;
 	private Tile[][] tileArray;
+	private JTextField[] movesFields;
 
 	public MovesView(ActionListener nextActionListener){
 		super("Horse Moves");
@@ -33,6 +38,15 @@ public class MovesView extends JFrame{
 		centerLayout.setConstraints(boardPanel, constraints);
 		tileArray = new Tile[8][8];
 		createBoard();
+		movesFields = new JTextField[4];
+		textField1 = new JTextField();
+		textField2 = new JTextField();
+		textField3 = new JTextField();
+		textField4 = new JTextField();
+		movesFields[0] = textField1;
+		movesFields[1] = textField2;
+		movesFields[2] = textField3;
+		movesFields[3] = textField4;
 	}
 
 	/**
@@ -63,6 +77,15 @@ public class MovesView extends JFrame{
 
 	public void highlightPosition(int i, int j, int number){
 		tileArray[i][j].setText(String.valueOf(number));
+	}
+
+	public void addMove(int stackNumber, String move){
+		movesFields[stackNumber].setText(movesFields[stackNumber].getText() + " " + move);
+	}
+
+	public void removeMove(int stackNumber){
+		String text = movesFields[stackNumber].getText();
+		movesFields[stackNumber].setText(text.substring(0, text.lastIndexOf(" ")));
 	}
 
 	public class Tile extends JPanel{

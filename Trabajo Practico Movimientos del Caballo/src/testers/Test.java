@@ -10,7 +10,11 @@ import javax.swing.*;
  */
 public class Test {
 	public static void main(String[] args) {
-		new MovesView(e -> System.out.println("Clicked")).setVisible(true);
+		MovesView m = new MovesView(e -> System.out.println("Clicked"));
+		m.setVisible(true);
+		m.addMove(1, "A1 C2 D3");
+		m.removeMove(1);
+		m.highlightPosition(1, 3, 2);
 	}
 
 }
