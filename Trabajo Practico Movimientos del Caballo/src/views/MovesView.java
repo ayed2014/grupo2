@@ -24,9 +24,10 @@ public class MovesView extends JFrame{
 	private JTextField[] movesFields;
 
 	public MovesView(ActionListener nextActionListener){
-		super("Horse Moves");
+		super("Knight Moves");
 		setContentPane(rootPanel);
-		setMinimumSize(new Dimension(700, 500));
+		setMinimumSize(new Dimension(760, 465));
+		setResizable(false);
 		setLocationRelativeTo(null);
 		nextButton.addActionListener(nextActionListener);
 	}
@@ -53,8 +54,8 @@ public class MovesView extends JFrame{
 	 * Creates the visual board by adding different buttons with their respective images.
 	 */
 	public void createBoard(){
-		for(int i = 1; i <= 8; i++){
-			for(int j = 1; j <= 8; j++){
+		for(int i = 1; i <= 9; i++){
+			for(int j = 1; j <= 9; j++){
 				placeTile(i, j);
 			}
 		}
@@ -69,9 +70,14 @@ public class MovesView extends JFrame{
 		Tile tile;
 		constraints.gridx = i;
 		constraints.gridy = j;
-		if((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0)) tile = new Tile(false);
-		else tile = new Tile(true);
-		tileArray[j-1][i-1] = tile;
+		if(i == 1 && j == 1) tile = new Tile("");
+		else if(j == 1) tile = new Tile(String.valueOf(i - 1));
+		else if(i == 1) tile = new Tile(String.valueOf((char) (j + 63)));
+		else {
+			if ((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0)) tile = new Tile(true);
+			else tile = new Tile(false);
+			tileArray[j-2][i-2] = tile;
+		}
 		boardPanel.add(tile, constraints);
 	}
 
@@ -98,8 +104,19 @@ public class MovesView extends JFrame{
 			label.setOpaque(false);
 			label.setFont(new Font("Arial", Font.BOLD, 30));
 			setPreferredSize(new Dimension(40, 40));
-			if(isWhite) setBackground(Color.WHITE);
-			else setBackground(Color.BLACK);
+			setBackground(isWhite ? Color.WHITE : Color.BLACK);
+			label.setForeground(Color.RED);
+			add(label);
+		}
+
+		public Tile(String text){
+			super();
+			label = new JLabel();
+			label.setOpaque(false);
+			label.setFont(new Font("Arial", Font.PLAIN, 28));
+			setPreferredSize(new Dimension(40, 40));
+			setText(text);
+			label.setForeground(Color.BLACK);
 			add(label);
 		}
 
