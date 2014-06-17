@@ -15,7 +15,7 @@ public class KnightMoves {
 		for (int i = 0; i < movesQueues.length; i++) {
 			movesQueues[i] = new QueueD();
 		}
-		currentPosition = "D4";
+		currentPosition = "A1";
 		currentQueue = -1;
 	}
 
