@@ -10,6 +10,8 @@ public class KnightMoves {
 	private String currentPosition;
 	private int currentQueue;
 
+	private final boolean DEBUG = true;
+
 	public KnightMoves(){
 		movesQueues = new Queue[4];
 		for (int i = 0; i < movesQueues.length; i++) {
@@ -42,7 +44,7 @@ public class KnightMoves {
 		    j = Integer.parseInt(move.substring(1));
 		    if(!(i < 65 || j < 1 || i > 72 || j > 8)) {
 			    nextQueue.enQueue(move);
-			    System.out.println(move);
+			    if(DEBUG) System.out.println(move);
 		    }
 	    }
 		return true;
