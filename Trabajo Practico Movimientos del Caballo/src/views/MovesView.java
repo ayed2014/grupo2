@@ -82,7 +82,11 @@ public class MovesView extends JFrame{
 	}
 
 	public void highlightPosition(int i, int j, int number){
-		tileArray[i][j].setText(String.valueOf(number));
+		tileArray[i-1][j-1].setText(String.valueOf(number));
+	}
+
+	public void unhilightPosition(int i, int j){
+		tileArray[i-1][j-1].setText("");
 	}
 
 	public void addMove(int stackNumber, String move){
@@ -113,7 +117,7 @@ public class MovesView extends JFrame{
 			super();
 			label = new JLabel();
 			label.setOpaque(false);
-			label.setFont(new Font("Arial", Font.PLAIN, 28));
+			label.setFont(new Font("Arial", Font.PLAIN, 25));
 			setPreferredSize(new Dimension(40, 40));
 			setText(text);
 			label.setForeground(Color.BLACK);

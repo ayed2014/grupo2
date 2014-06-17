@@ -8,7 +8,7 @@ import javax.swing.*;
  * @author Nicolas Burroni
  * @since 5/28/2014
  */
-public class Test {
+public class ViewTest {
 	public static void main(String[] args) {
 		MovesView m = new MovesView(e -> System.out.println("Clicked"));
 		m.setVisible(true);

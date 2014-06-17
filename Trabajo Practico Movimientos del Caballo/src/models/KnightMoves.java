@@ -1,0 +1,55 @@
+package models;
+
+/**
+ * @author Nicolas Burroni
+ * @since 6/13/2014
+ */
+public class KnightMoves {
+
+	private Queue[] movesQueues;
+	private String currentPosition;
+	private int currentQueue;
+
+	public KnightMoves(){
+		movesQueues = new Queue[4];
+		for (int i = 0; i < movesQueues.length; i++) {
+			movesQueues[i] = new QueueD();
+		}
+		currentPosition = "D4";
+		currentQueue = -1;
+	}
+
+	public Queue nextMove(){
+		if(fillQueue(currentQueue + 1)){
+
+		} else {
+			movesQueues[currentQueue].deQueue();
+		}
+
+
+		return null;
+	}
+
+	public boolean fillQueue(int index){
+		if(index >= movesQueues.length) return false;
+		//if(movesQueues[index].isEmpty()) return false;
+		int i = (int) currentPosition.charAt(0);
+		int j = Integer.parseInt(currentPosition.substring(1));
+		Queue nextQueue = movesQueues[index];
+		String[] possibleMoves = {((char) (i - 1)) + "" + (j - 2) ,((char)(i - 1)) + "" + (j + 2) ,
+				((char) (i + 1)) + "" + (j - 2) ,((char) (i + 1)) + "" + (j + 2) ,((char)(i - 2)) + "" + (j - 1),
+				((char) (i - 2)) + "" + (j + 1),((char) (i + 2)) + "" + (j - 1),((char) (i + 2)) + "" + (j + 1)};
+	    for(String move : possibleMoves){
+		    i = (int) move.charAt(0);
+		    j = Integer.parseInt(move.substring(1));
+		    if(!(i < 65 || j < 1 || i > 72 || j > 8)) {
+			    nextQueue.enQueue(move);
+			    System.out.println(move);
+		    }
+	    }
+		return true;
+	}
+
+
+
+}
