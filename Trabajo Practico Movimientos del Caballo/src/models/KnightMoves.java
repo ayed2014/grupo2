@@ -48,6 +48,12 @@ public class KnightMoves {
 		return true;
 	}
 
+	public String getCurrentPosition() {
+		return currentPosition;
+	}
 
-
+	public Queue[] getMovesQueues(){
+		Queue[] q = {movesQueues[0].clone(), movesQueues[1].clone(), movesQueues[2].clone(), movesQueues[3].clone()};
+		return q;
+	}
 }
