@@ -89,7 +89,7 @@ public class MovesView extends JFrame{
 		tileArray[i-1][j-1].setText("");
 	}
 
-	public void addMove(int stackNumber, String move){
+	private void addMove(int stackNumber, String move){
 		movesFields[stackNumber].setText(movesFields[stackNumber].getText() + " " + move);
 	}
 
