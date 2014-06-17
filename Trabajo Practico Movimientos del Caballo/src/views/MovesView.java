@@ -98,6 +98,12 @@ public class MovesView extends JFrame{
 		movesFields[stackNumber].setText(text.substring(0, text.lastIndexOf(" ")));
 	}
 
+	public void removeAllMoves(){
+		for (JTextField field : movesFields) {
+			field.setText("");
+		}
+	}
+
 	public class Tile extends JPanel{
 
 		private JLabel label;

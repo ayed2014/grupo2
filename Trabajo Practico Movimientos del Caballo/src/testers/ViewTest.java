@@ -15,6 +15,7 @@ public class ViewTest {
 		m.addMove(1, "A1 C2 D3");
 		m.removeMove(1);
 		m.highlightPosition(1, 3, 2);
+		m.removeAllMoves();
 	}
 
 }

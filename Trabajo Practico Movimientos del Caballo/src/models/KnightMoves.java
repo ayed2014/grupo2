@@ -23,9 +23,11 @@ public class KnightMoves {
 
 	public void nextMove(){
 		if(fillQueue(currentQueue + 1)){
-
+			currentQueue++;
+			currentPosition = (String) movesQueues[currentQueue].seeFront();
 		} else {
-			currentPosition = (String) movesQueues[currentQueue].deQueue();
+			movesQueues[currentQueue].deQueue();
+			currentPosition = (String) movesQueues[currentQueue].seeFront();
 		}
 
 
@@ -33,6 +35,7 @@ public class KnightMoves {
 
 	public boolean fillQueue(int index){
 		if(index >= movesQueues.length) return false;
+		if(DEBUG) System.out.println("**" + currentPosition + "**");
 		int i = (int) currentPosition.charAt(0);
 		int j = Integer.parseInt(currentPosition.substring(1));
 		Queue nextQueue = movesQueues[index];
