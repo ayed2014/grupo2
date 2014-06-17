@@ -19,20 +19,18 @@ public class KnightMoves {
 		currentQueue = -1;
 	}
 
-	public Queue nextMove(){
+	public void nextMove(){
 		if(fillQueue(currentQueue + 1)){
 
 		} else {
-			movesQueues[currentQueue].deQueue();
+			currentPosition = (String) movesQueues[currentQueue].deQueue();
 		}
 
 
-		return null;
 	}
 
 	public boolean fillQueue(int index){
 		if(index >= movesQueues.length) return false;
-		//if(movesQueues[index].isEmpty()) return false;
 		int i = (int) currentPosition.charAt(0);
 		int j = Integer.parseInt(currentPosition.substring(1));
 		Queue nextQueue = movesQueues[index];
