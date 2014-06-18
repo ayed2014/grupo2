@@ -59,7 +59,7 @@ public class KnightMoves {
 	}
 
 	private boolean hasBeenQueued(String move){
-		if(move == "A1") return true;
+		if(move.equals("A1")) return true;
 		for (Queue movesQueue : movesQueues) {
 			if(movesQueue.exists(move)) return true;
 		}
