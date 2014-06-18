@@ -31,8 +31,8 @@ public class KnightMoves {
 		else movesQueues[currentQueue].deQueue();
 		while(movesQueues[currentQueue].isEmpty()){ //Check if the current queue is empty to go back a queue
 			currentQueue--;
-			movesQueues[currentQueue].deQueue();
 			if(currentQueue < 0) return false; //No more possible moves remain
+			movesQueues[currentQueue].deQueue();
 		}
 		currentPosition = (String) movesQueues[currentQueue].seeFront();
 		return true; //Possible moves remain
@@ -44,9 +44,16 @@ public class KnightMoves {
 		int i = (int) currentPosition.charAt(0);
 		int j = Integer.parseInt(currentPosition.substring(1));
 		Queue nextQueue = movesQueues[index];
-		String[] possibleMoves = {((char) (i - 1)) + "" + (j - 2) ,((char)(i - 1)) + "" + (j + 2) ,
-				((char) (i + 1)) + "" + (j - 2) ,((char) (i + 1)) + "" + (j + 2) ,((char)(i - 2)) + "" + (j - 1),
-				((char) (i - 2)) + "" + (j + 1),((char) (i + 2)) + "" + (j - 1),((char) (i + 2)) + "" + (j + 1)};
+		String[] possibleMoves = {
+				((char) (i - 1)) + "" + (j - 2),
+				((char) (i - 2)) + "" + (j - 1),
+				((char) (i - 2)) + "" + (j + 1),
+				((char) (i - 1)) + "" + (j + 2),
+				((char) (i + 1)) + "" + (j + 2),
+				((char) (i + 2)) + "" + (j + 1),
+				((char) (i + 2)) + "" + (j - 1),
+				((char) (i + 1)) + "" + (j - 2)
+		};
 	    for(String move : possibleMoves){
 		    i = (int) move.charAt(0);
 		    j = Integer.parseInt(move.substring(1));
@@ -61,7 +68,7 @@ public class KnightMoves {
 	private boolean hasBeenQueued(String move){
 		if(move.equals("A1")) return true;
 		for (Queue movesQueue : movesQueues) {
-			if(movesQueue.exists(move)) return true;
+			if(!movesQueue.isEmpty() && movesQueue.seeFront().equals(move)) return true;
 		}
 		return false;
 	}
@@ -71,7 +78,7 @@ public class KnightMoves {
 	}
 
 	public int getMoveNumber(){
-		return currentQueue + 2;
+		return currentQueue + 1;
 	}
 
 	public Queue[] getMovesQueues(){

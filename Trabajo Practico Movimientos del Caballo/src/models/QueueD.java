@@ -63,13 +63,4 @@ public class QueueD implements Queue, Cloneable {
 		return cloned;
 	}
 
-	@Override
-	public boolean exists(Object obj) {
-		Nodo aux = front;
-		for (int i = 0; i < length; i++) {
-			if(aux.obj.equals(obj)) return true;
-			aux = aux.next;
-		}
-		return false;
-	}
 }
