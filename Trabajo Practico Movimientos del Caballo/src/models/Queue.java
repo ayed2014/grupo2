@@ -12,5 +12,6 @@ public interface Queue {
 	public int length();
 	public Queue clone();
 	public Object seeFront();
+	public boolean exists(Object obj);
 
 }

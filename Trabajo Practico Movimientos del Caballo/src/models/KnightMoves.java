@@ -21,16 +21,21 @@ public class KnightMoves {
 		currentQueue = -1;
 	}
 
-	public void nextMove(){
-		if(fillQueue(currentQueue + 1)){
-			currentQueue++;
-			currentPosition = (String) movesQueues[currentQueue].seeFront();
-		} else {
+	/**
+	 * Generates the next move for the Knight. It returns true if there are moves left, and
+	 * false if it has made them all.
+	 * @return true if there are still moves left, false otherwise.
+	 */
+	public boolean nextMove(){
+		if(fillQueue(currentQueue + 1)) currentQueue++;
+		else movesQueues[currentQueue].deQueue();
+		while(movesQueues[currentQueue].isEmpty()){ //Check if the current queue is empty to go back a queue
+			currentQueue--;
 			movesQueues[currentQueue].deQueue();
-			currentPosition = (String) movesQueues[currentQueue].seeFront();
+			if(currentQueue < 0) return false; //No more possible moves remain
 		}
-
-
+		currentPosition = (String) movesQueues[currentQueue].seeFront();
+		return true; //Possible moves remain
 	}
 
 	public boolean fillQueue(int index){
@@ -53,8 +58,19 @@ public class KnightMoves {
 		return true;
 	}
 
+	private boolean hasBeenQueued(String move){
+		for (Queue movesQueue : movesQueues) {
+			if(movesQueue.exists(move)) return true;
+		}
+		return false;
+	}
+
 	public String getCurrentPosition() {
 		return currentPosition;
+	}
+
+	public String getMoveNumber(){
+		return String.valueOf(currentQueue + 2);
 	}
 
 	public Queue[] getMovesQueues(){
