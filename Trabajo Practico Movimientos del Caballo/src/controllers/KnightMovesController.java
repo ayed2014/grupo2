@@ -4,6 +4,8 @@ import models.KnightMoves;
 import models.Queue;
 import views.MovesView;
 
+import javax.swing.*;
+
 /**
  * Created by Francisco on 6/17/2014.
  */
@@ -16,6 +18,7 @@ public class KnightMovesController {
         mv = new MovesView(e -> nextMove());
 	    mv.highlightPosition(1, 1, 1);
 	    mv.setVisible(true);
+	    mv.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**

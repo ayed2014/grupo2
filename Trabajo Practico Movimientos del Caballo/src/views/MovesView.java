@@ -90,12 +90,12 @@ public class MovesView extends JFrame{
 	}
 
 	public void addMove(int stackNumber, String move){
-		movesFields[stackNumber].setText(movesFields[stackNumber].getText() + " " + move);
+		movesFields[stackNumber].setText(move + " " + movesFields[stackNumber].getText());
 	}
 
 	public void removeMove(int stackNumber){
 		String text = movesFields[stackNumber].getText();
-		movesFields[stackNumber].setText(text.substring(0, text.lastIndexOf(" ")));
+		movesFields[stackNumber].setText(text.substring(text.lastIndexOf(" "), text.length() - 1));
 	}
 
 	public void removeAllMoves(){
