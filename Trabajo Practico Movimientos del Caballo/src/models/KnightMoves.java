@@ -50,7 +50,7 @@ public class KnightMoves {
 	    for(String move : possibleMoves){
 		    i = (int) move.charAt(0);
 		    j = Integer.parseInt(move.substring(1));
-		    if(!(i < 65 || j < 1 || i > 72 || j > 8)) {
+		    if((!(i < 65 || j < 1 || i > 72 || j > 8)) && !hasBeenQueued(move)) {
 			    nextQueue.enQueue(move);
 			    if(DEBUG) System.out.println(move);
 		    }
@@ -59,6 +59,7 @@ public class KnightMoves {
 	}
 
 	private boolean hasBeenQueued(String move){
+		if(move == "A1") return true;
 		for (Queue movesQueue : movesQueues) {
 			if(movesQueue.exists(move)) return true;
 		}
@@ -69,8 +70,8 @@ public class KnightMoves {
 		return currentPosition;
 	}
 
-	public String getMoveNumber(){
-		return String.valueOf(currentQueue + 2);
+	public int getMoveNumber(){
+		return currentQueue + 2;
 	}
 
 	public Queue[] getMovesQueues(){
