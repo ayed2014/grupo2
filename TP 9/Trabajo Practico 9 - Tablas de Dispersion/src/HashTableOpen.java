@@ -1,14 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Nicolas Burroni
  * @since 5/14/2014
  */
 public class HashTableOpen implements HashTable {
 
-    private List[] array;
+    private List[] elements;
 
     public HashTableOpen(int size) {
-        array = new ListE[size];
-        for (int i = 0; i < array.length;i++) array[i] = new ListE();
+        elements = new ArrayList[size];
+        for (int i = 0; i < elements.length;i++) elements[i] = new ArrayList();
     }
 
     public boolean isPrime(int number) {
@@ -19,78 +22,67 @@ public class HashTableOpen implements HashTable {
     @Override
     public void insert(Hashable elem) {
         if (!exists(elem)) {
-            array[elem.hash(array.length)].addAfter(elem);
+            elements[elem.hash(elements.length)].add(elem);
         }
     }
 
     @Override
     public void delete(Hashable elem) {
-        List theList = array[elem.hash(array.length)];
+        List theList = elements[elem.hash(elements.length)];
         for (int i = 0; i < theList.size(); i++) {
-            theList.goTo(i);
-            if (theList.seeCurrent().equals(elem)) theList.remove();
+            if (theList.get(i).equals(elem)) theList.remove(i);
         }
-        theList.goTo(theList.size());
     }
 
     @Override
     public Object get(Hashable elem) {
-        List theList = array[elem.hash(array.length)];
+        List theList = elements[elem.hash(elements.length)];
         for (int i = 0; i < theList.size(); i++) {
-            theList.goTo(i);
-            if (theList.seeCurrent().equals(elem)) {
-                Hashable theObject = (Hashable) theList.seeCurrent();
-                theList.goTo(theList.size());
+            if (theList.get(i).equals(elem)) {
+                Hashable theObject = (Hashable) theList.get(i);
                 return theObject;
             }
         }
-        theList.goTo(theList.size());
         return null;
     }
 
     @Override
     public boolean exists(Hashable elem) {
-        List theList = array[elem.hash(array.length)];
+        List theList = elements[elem.hash(elements.length)];
         for (int i = 0; i < theList.size(); i++) {
-            theList.goTo(i);
-            if (theList.seeCurrent().equals(elem)){
-                theList.goTo(theList.size());
+	        if(theList.isEmpty()) continue;
+            if (theList.get(i).equals(elem)){
                 return true;
             }
         }
-        theList.goTo(theList.size());
         return false;
     }
 
     @Override
     public BinarySearchTree toBinarySearchTree() {
         BinarySearchTree b = new BinarySearchTreeD();
-        for (int i = 0; i < array.length; i++){
-            List currentList = array[i];
+        for (int i = 0; i < elements.length; i++){
+            List currentList = elements[i];
             for (int j = 0; j < currentList.size(); j++){
-                currentList.goTo(j);
-                b.insert((Comparable) currentList.seeCurrent());
+                b.insert((Comparable) currentList.get(j));
             }
-            currentList.goTo(currentList.size());
         }
         return b;
     }
 
     @Override
     public void destroy() {
-	    for (List currentList : array) {
-		    currentList.empty(); // El puntero vuelve al primer lugar
+	    for (int i = 0; i < elements.length; i++) {
+		    elements[i] = new ArrayList<>(); // El puntero vuelve al primer lugar
 	    }
     }
 
     public Object[] getArray(Hashable elem) {
-        List theList = array[elem.hash(array.length)];
+        List theList = elements[elem.hash(elements.length)];
         Object[] theArray = new Object[theList.size()];
         for (int i = 0; i < theList.size(); i++) {
-            theList.goTo(i);
-            theArray[i] = theList.seeCurrent();
+            theArray[i] = theList.get(i);
         }
-        theList.goTo(theList.size());
         return theArray;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.regex.Pattern;
+
 /**
  * @author Nicolas Burroni
  * @since 5/15/2014
@@ -7,12 +9,11 @@ public class DictionaryWord implements Hashable{
 	private String word, definition, soundexCode;
 
 	public DictionaryWord(String word) {
-		this.word = word.toLowerCase();
-		this.soundexCode = soundexCode(this.word);
+		this(word, "");
 	}
 
 	public DictionaryWord(String word, String definition) {
-		this.word = word.toLowerCase();
+		this.word = cleanUpWord(word.toLowerCase());
 		this.definition = definition;
 		this.soundexCode = soundexCode(this.word);
 	}
@@ -64,6 +65,33 @@ public class DictionaryWord implements Hashable{
 	@Override
 	public int hash(int n) {
 		return soundexCode.hashCode() % n;
+	}
+
+	private String cleanUpWord(String word){
+		for (int i = 1; i <= 8; i++) {
+			String replace = "";
+			switch(i){
+				case 1: replace = ".";
+					break;
+				case 2: replace = ",";
+					break;
+				case 3: replace = ";";
+					break;
+				case 4: replace = ":";
+					break;
+				case 5: replace = "?";
+					break;
+				case 6: replace = "!";
+					break;
+				case 7: replace = "(";
+					break;
+				case 8: replace = ")";
+					break;
+				default: break;
+			}
+			word = word.replaceAll(Pattern.quote(replace), "");
+		}
+		return word;
 	}
 
 	public String getWord() {

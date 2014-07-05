@@ -78,6 +78,10 @@ public class Dictionary {
 					break;
 				case 8: replace = ")";
 					break;
+				case 9: replace = "\"";
+					break;
+				case 10: replace = "'";
+					break;
 				default: break;
 			}
 			text = text.replaceAll(Pattern.quote(replace), "");

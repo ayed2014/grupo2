@@ -31,6 +31,7 @@ public class DictionaryInterface extends JFrame{
 			if(reference == null) return;
 		} while (reference.equals(""));
 		dictionary = new Dictionary(reference);
+		//actionlistener for proof read
 		proofReadButton.addActionListener(e -> {
 			Map<String, DictionaryWord[]> correctionsMap = dictionary.proofRead(textArea.getText());
 			String corrections = "";
@@ -44,6 +45,17 @@ public class DictionaryInterface extends JFrame{
 			
 			correctionsTextPane.setText(corrections);
 		});
+		//actionlistener for add word
+		addWordButton.addActionListener(e -> {
+			String word;
+			String[] check;
+			do {
+				word = JOptionPane.showInputDialog("Enter ONE word to add to dictionary:");
+				check = word.split(" ");
+			} while(check.length > 1);
+			dictionary.addWord(word);
+		});
+
 		correctionsLabel.setText("Word              Suggestions");
 		setLocationRelativeTo(null);
 		setVisible(true);
