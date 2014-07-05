@@ -14,7 +14,7 @@ public class HashTableOpen implements HashTable {
         for (int i = 0; i < elements.length;i++) elements[i] = new ArrayList();
     }
 
-    public boolean isPrime(int number) {
+    public static boolean isPrime(int number) {
         for (int i = 2; i < number / 2; i++) if (number % i == 0) return false;
         return true;
     }

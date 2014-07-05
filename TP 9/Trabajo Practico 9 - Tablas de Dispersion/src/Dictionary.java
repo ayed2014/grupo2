@@ -11,8 +11,11 @@ public class Dictionary {
 	private HashTableOpen words;
 
 	public Dictionary(String referenceText){
-		words = new HashTableOpen(53);
 		String[] referenceWords = separateWords(referenceText);
+		int length = referenceWords.length;
+		if(length <= 13) length = 13;
+		else while(!HashTableOpen.isPrime(length)) length++;
+		words = new HashTableOpen(length);
 		for (String referenceWord : referenceWords) {
 			addWord(referenceWord);
 		}
