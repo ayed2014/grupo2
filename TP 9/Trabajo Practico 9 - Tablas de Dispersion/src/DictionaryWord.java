@@ -7,14 +7,14 @@ public class DictionaryWord implements Hashable{
 	private String word, definition, soundexCode;
 
 	public DictionaryWord(String word) {
-		this.word = word;
-		this.soundexCode = soundexCode(word);
+		this.word = word.toLowerCase();
+		this.soundexCode = soundexCode(this.word);
 	}
 
 	public DictionaryWord(String word, String definition) {
-		this.word = word;
+		this.word = word.toLowerCase();
 		this.definition = definition;
-		this.soundexCode = soundexCode(word);
+		this.soundexCode = soundexCode(this.word);
 	}
 
 	public String soundexCode(String word){
@@ -71,8 +71,8 @@ public class DictionaryWord implements Hashable{
 	}
 
 	public void setWord(String word) {
-		this.word = word;
-		this.soundexCode = soundexCode(word);
+		this.word = word.toLowerCase();
+		this.soundexCode = soundexCode(this.word);
 	}
 
 	public String getDefinition() {
@@ -91,4 +91,15 @@ public class DictionaryWord implements Hashable{
 		return soundexCode;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DictionaryWord that = (DictionaryWord) o;
+
+		if (word != null ? !word.equals(that.word) : that.word != null) return false;
+
+		return true;
+	}
 }
