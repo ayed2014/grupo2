@@ -14,6 +14,7 @@ public class FileAnimal {
     private final static int lengthEntry = 29;
     private File f;
     private RandomAccessFile raf;
+    private AvlTree indexFile;
 
     public FileAnimal(String name) throws FileNotFoundException {
         f = new File(name);
@@ -24,7 +25,57 @@ public class FileAnimal {
         return length() / lengthEntry;
     }
 
-    public long getAmounOfEntriesByType(char type) throws IOException {
+    public long getAmountOfEntriesByCondition() throws IOException {
+        long counter = 0;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Which field is the condition going to be applied to:");
+        System.out.println("1. Type\n2. Age\n3. Sex\n4. Weight\n5. Price per kilo\n6. Availability");
+        int option = Integer.parseInt(sc.nextLine());
+        switch (option) {
+            case 1:
+                System.out.println("Please enter the type: ");
+                char c = Character.toUpperCase(sc.nextLine().charAt(0));
+                counter = getAmountOfEntriesByType(c);
+                break;
+            case 2:
+                System.out.println("Please enter the age: ");
+                int i = Integer.parseInt(sc.nextLine());
+                counter = getAmountOfEntriesByAge(i);
+                break;
+            case 3:
+                System.out.println("Please enter the sex: ");
+                char s = Character.toUpperCase(sc.nextLine().charAt(0));
+                counter = getAmountOfEntriesBySex(s);
+                break;
+            case 4:
+                System.out.println("Please enter the weight: ");
+                double w = Double.parseDouble(sc.nextLine());
+                counter = getAmountOfEntriesByWeight(w);
+                break;
+            case 5:
+                System.out.println("Please enter the price per kilo: ");
+                double p = Double.parseDouble(sc.nextLine());
+                counter = getAmountOfEntriesByPrice(p);
+                break;
+            case 6:
+                System.out.println("Available (Yes or No): ");
+                char a = Character.toLowerCase(sc.nextLine().charAt(0));
+                if (a == 'y') counter = getAmountOfEntriesByAvailability(true);
+                else if (a == 'n') counter = getAmountOfEntriesByAvailability(false);
+                else {
+                    System.out.println("Not a valid option.");
+                    getAmountOfEntriesByCondition();
+                }
+                break;
+            default:
+                System.out.println("Not a valid option.");
+                getAmountOfEntriesByCondition();
+                break;
+        }
+        return counter;
+    }
+
+    public long getAmountOfEntriesByType(char type) throws IOException {
         int counter = 0;
         goTo(1);
         for (int i = 0; i < getAmountOfEntries(); i++) {
@@ -44,7 +95,7 @@ public class FileAnimal {
         return counter;
     }
 
-    public long getAmounOfEntriesBySex(char sex) throws IOException {
+    public long getAmountOfEntriesBySex(char sex) throws IOException {
         int counter = 0;
         goTo(1);
         for (int i = 0; i < getAmountOfEntries(); i++) {
@@ -54,7 +105,7 @@ public class FileAnimal {
         return counter;
     }
 
-    public long getAmounOfEntriesByWeight(double weight) throws IOException {
+    public long getAmountOfEntriesByWeight(double weight) throws IOException {
         int counter = 0;
         goTo(1);
         for (int i = 0; i < getAmountOfEntries(); i++) {
@@ -64,7 +115,7 @@ public class FileAnimal {
         return counter;
     }
 
-    public long getAmounOfEntriesByPrice(double price) throws IOException {
+    public long getAmountOfEntriesByPrice(double price) throws IOException {
         int counter = 0;
         goTo(1);
         for (int i = 0; i < getAmountOfEntries(); i++) {
@@ -74,7 +125,7 @@ public class FileAnimal {
         return counter;
     }
 
-    public long getAmounOfEntriesByAvailability(boolean available) throws IOException {
+    public long getAmountOfEntriesByAvailability(boolean available) throws IOException {
         int counter = 0;
         goTo(1);
         for (int i = 0; i < getAmountOfEntries(); i++) {
@@ -130,11 +181,19 @@ public class FileAnimal {
     }
 
     private Animal search(int tag) throws IOException {
-        beginning();
-        for (int i = 0; i < getAmountOfEntries(); i++) {
-            Animal a = read();
-            if (a.getTag() == tag) {
-                return a;
+        if (indexFile == null) {
+            beginning();
+            for (int i = 0; i < getAmountOfEntries(); i++) {
+                Animal a = read();
+                if (a.getTag() == tag) {
+                    return a;
+                }
+            }
+        } else {
+            long pointer = indexFile.findNode(tag);
+            if (pointer > 0) {
+                goTo(pointer);
+                return read();
             }
         }
         return null;
@@ -153,41 +212,37 @@ public class FileAnimal {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Do you want to add a new animal? (yes or no) ");
-        String answer = scanner.next();
-        while (answer.charAt(0) == 'Y' || answer.charAt(0) == 'y') {
-            System.out.println("Enter the following data of the animal");
-            System.out.println("Tag: ");
+        System.out.println("Enter the following data of the animal");
+        System.out.println("Tag:");
+        tag = scanner.nextInt();
+        Animal a = search(tag);
+        while (tag == 0 || (a != null && a.getTag() != 0)) {
+            System.out.println("Tag can't be 0 or this tag is all ready registered, please enter another value ");
             tag = scanner.nextInt();
-            Animal a = search(tag);
-            while (tag == 0 || (a != null && a.getTag() != 0)) {
-                System.out.println("Tag can't be 0 or this tag is all ready registered, please enter another value ");
-                tag = scanner.nextInt();
-                a = search(tag);
-            }
-            System.out.println("Type: ");
-            type = scanner.next().charAt(0);
-            System.out.println("Age: ");
-            age = scanner.nextInt();
-            System.out.println("Sex type: ");
-            sex = scanner.next().toLowerCase().charAt(0);
-            System.out.println("Weight: ");
-            weight = scanner.nextDouble();
-            System.out.println("Price: ");
-            pricePerKg = scanner.nextDouble();
-            try {
-                write(new Animal(tag, type, age, sex, weight, pricePerKg, true));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Do you want to add another animal?");
-            answer = scanner.next();
+            a = search(tag);
+        }
+        System.out.println("Type: ");
+        type = scanner.next().charAt(0);
+        System.out.println("Age: ");
+        age = scanner.nextInt();
+        System.out.println("Sex type: ");
+        sex = scanner.next().toLowerCase().charAt(0);
+        System.out.println("Weight: ");
+        weight = scanner.nextDouble();
+        System.out.println("Price: ");
+        pricePerKg = scanner.nextDouble();
+        try {
+            ending();
+            if (indexFile != null) indexFile.insert(tag, raf.getFilePointer());
+            write(new Animal(tag, type, age, sex, weight, pricePerKg, true));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public boolean remove() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the tag you wish to eliminate: ");
+        System.out.println("Please enter the tag you wish to eliminate:");
         int tag = scanner.nextInt();
         Animal a = search(tag);
         if (a != null && a.getTag() != 0) {
@@ -257,16 +312,69 @@ public class FileAnimal {
         } else return false;
     }
 
-    public void consultAnimal(int tag) throws IOException {
+    public void consultAnimal() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter tag to search for:");
+        int tag = Integer.parseInt(sc.nextLine());
         Animal a = search(tag);
         if (a != null) {
             System.out.println(a.toString());
+        } else {
+            System.out.println("Tag not found.");
         }
     }
 
     public void report() throws IOException {
         goTo(1);
         for (int i = 0; i < getAmountOfEntries(); i++) System.out.println(read().toString() + "\n");
+    }
+
+    public void reportByCondition() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Which field is the condition going to be applied to:");
+        System.out.println("1. Type\n2. Age\n3. Sex\n4. Weight\n5. Price per kilo\n6. Availability");
+        int option = Integer.parseInt(sc.nextLine());
+        switch (option) {
+            case 1:
+                System.out.println("Please enter the type: ");
+                char c = Character.toUpperCase(sc.nextLine().charAt(0));
+                reportByType(c);
+                break;
+            case 2:
+                System.out.println("Please enter the age: ");
+                int i = Integer.parseInt(sc.nextLine());
+                reportByAge(i);
+                break;
+            case 3:
+                System.out.println("Please enter the sex: ");
+                char s = Character.toUpperCase(sc.nextLine().charAt(0));
+                reportBySex(s);
+                break;
+            case 4:
+                System.out.println("Please enter the weight: ");
+                double w = Double.parseDouble(sc.nextLine());
+                reportByWeight(w);
+                break;
+            case 5:
+                System.out.println("Please enter the price per kilo: ");
+                double p = Double.parseDouble(sc.nextLine());
+                reportByPrice(p);
+                break;
+            case 6:
+                System.out.println("Available (Yes or No): ");
+                char a = Character.toLowerCase(sc.nextLine().charAt(0));
+                if (a == 'y') reportByAvailability(true);
+                else if (a == 'n') reportByAvailability(false);
+                else {
+                    System.out.println("Not a valid option.");
+                    reportByCondition();
+                }
+                break;
+            default:
+                System.out.println("Not a valid option.");
+                reportByCondition();
+                break;
+        }
     }
 
     public void reportByType(char type) throws IOException {
@@ -293,7 +401,7 @@ public class FileAnimal {
         }
     }
 
-    public void reportWeight(double weight) throws IOException {
+    public void reportByWeight(double weight) throws IOException {
         goTo(1);
         for (int i = 0; i < getAmountOfEntries(); i++) {
             Animal a = read();
@@ -314,6 +422,17 @@ public class FileAnimal {
         for (int i = 0; i < getAmountOfEntries(); i++) {
             Animal a = read();
             if (a.isAvailable() == available) System.out.println(a.toString());
+        }
+    }
+
+    public void generateIndexFile() throws IOException {
+        indexFile = new AvlTree();
+        goTo(1);
+        long filePointer;
+        for (int i = 0; i < getAmountOfEntries(); i++) {
+            filePointer = raf.getFilePointer();
+            Animal a = read();
+            indexFile.insert(a.getTag(), filePointer);
         }
     }
 }

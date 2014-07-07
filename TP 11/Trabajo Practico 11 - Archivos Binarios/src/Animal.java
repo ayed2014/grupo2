@@ -16,9 +16,9 @@ public class Animal {
     public Animal(int tag, char type, int age, char sex, double weight, double pricePerKg, boolean isAvailable) {
         this.tag = tag;
         this.age = age;
-        this.sex = sex;
+        this.sex = Character.toUpperCase(sex);
         this.pricePerKg = pricePerKg;
-        this.type = type;
+        this.type = Character.toUpperCase(type);
         this.weight = weight;
         this.isAvailable = isAvailable;
     }
